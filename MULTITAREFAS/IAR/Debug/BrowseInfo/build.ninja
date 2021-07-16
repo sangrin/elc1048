@@ -1,0 +1,61 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = D$:\IAR\common\bin\XclFileGenerator.exe $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in+++D$:\IAR\common\bin\XclFileGenerator.exe $flags
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = D$:\IAR\common\bin\SourceIndexer.exe $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out+++D$:\IAR\common\bin\SourceIndexer.exe $flags
+
+rule MAKEBROWSE
+  command = D$:\IAR\common\bin\makeBrowseData.exe $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out+++D$:\IAR\common\bin\makeBrowseData.exe $flags
+
+rule PDBLINK
+  command = D$:\IAR\common\bin\PbdLink.exe $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out+++D$:\IAR\common\bin\PbdLink.exe $flags
+
+
+
+#Build steps
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.xcl : COMPILER_XCL 
+  xclcommand = -source_file F$:\Git\elc1048\MULTITAREFAS\IAR\cpu-port.c -xcl_file F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.xcl -macro_file F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.tmp -icc_path D$:\IAR\arm\bin\iccarm.exe
+  flags = F$:\Git\elc1048\MULTITAREFAS\IAR\cpu-port.c -o F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\Obj\ --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config D$:\IAR\arm\inc\c\DLib_Config_Normal.h -I C$:\DADOS_LOCAIS\GITHUB\elc1048\MULTITAREFAS\IAR\ -On --predef_macros F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.tmp
+  rspfile_name = F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.xcl.rsp
+
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.xcl : COMPILER_XCL 
+  xclcommand = -source_file F$:\Git\elc1048\MULTITAREFAS\IAR\main.c -xcl_file F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.xcl -macro_file F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.tmp -icc_path D$:\IAR\arm\bin\iccarm.exe
+  flags = F$:\Git\elc1048\MULTITAREFAS\IAR\main.c -o F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\Obj\ --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config D$:\IAR\arm\inc\c\DLib_Config_Normal.h -I C$:\DADOS_LOCAIS\GITHUB\elc1048\MULTITAREFAS\IAR\ -On --predef_macros F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.tmp
+  rspfile_name = F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.xcl.rsp
+
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.xcl : COMPILER_XCL 
+  xclcommand = -source_file F$:\Git\elc1048\MULTITAREFAS\IAR\multitarefas.c -xcl_file F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.xcl -macro_file F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.tmp -icc_path D$:\IAR\arm\bin\iccarm.exe
+  flags = F$:\Git\elc1048\MULTITAREFAS\IAR\multitarefas.c -o F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\Obj\ --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config D$:\IAR\arm\inc\c\DLib_Config_Normal.h -I C$:\DADOS_LOCAIS\GITHUB\elc1048\MULTITAREFAS\IAR\ -On --predef_macros F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.tmp
+  rspfile_name = F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.xcl.rsp
+
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.pbi : INDEXER F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.xcl |  $
+F$:\Git\elc1048\MULTITAREFAS\IAR\cpu-port.c
+  flags = -out=F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.pbi -f F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.xcl
+
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.pbi : INDEXER F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.xcl |  $
+F$:\Git\elc1048\MULTITAREFAS\IAR\main.c
+  flags = -out=F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.pbi -f F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.xcl
+
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.pbi : INDEXER F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.xcl |  $
+F$:\Git\elc1048\MULTITAREFAS\IAR\multitarefas.c
+  flags = -out=F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.pbi -f F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.xcl
+
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\prj0.pbw : MAKEBROWSE F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\prj0.pbd
+  flags = F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\prj0.pbd -output F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\prj0.pbw
+
+build F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\prj0.pbd : PDBLINK F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.pbi |  $
+F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.pbi $
+F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.pbi
+  flags = -M F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\prj0.pbd F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\cpu-port.pbi F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\main.pbi F$:\Git\elc1048\MULTITAREFAS\IAR\Debug\BrowseInfo\multitarefas.pbi
+
