@@ -9,6 +9,7 @@
 void tarefa_1(void);
 void tarefa_2(void);
 void tarefa_3(void);
+void tarefa_4(void);
 
 /*
  * Configuracao dos tamanhos das pilhas
@@ -16,6 +17,8 @@ void tarefa_3(void);
 #define TAM_PILHA_1		(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_2		(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_3     	(TAM_MINIMO_PILHA + 24)
+#define TAM_PILHA_4     	(TAM_MINIMO_PILHA + 24)
+
 
 #define TAM_PILHA_OCIOSA	(TAM_MINIMO_PILHA + 24)
 
@@ -25,6 +28,8 @@ void tarefa_3(void);
 uint32_t PILHA_TAREFA_1[TAM_PILHA_1];
 uint32_t PILHA_TAREFA_2[TAM_PILHA_2];
 uint32_t PILHA_TAREFA_3[TAM_PILHA_3];
+uint32_t PILHA_TAREFA_4[TAM_PILHA_4];
+
 
 uint32_t PILHA_TAREFA_OCIOSA[TAM_PILHA_OCIOSA];
 
@@ -42,6 +47,9 @@ int main(void)
 	CriaTarefa(tarefa_2, "Tarefa 2", PILHA_TAREFA_2, TAM_PILHA_2, 2);
         
         CriaTarefa(tarefa_3, "Tarefa 3", PILHA_TAREFA_3, TAM_PILHA_3, 3);
+        
+        CriaTarefa(tarefa_4, "Tarefa 4", PILHA_TAREFA_4, TAM_PILHA_4, 4);
+
 
 	
 	/* Cria tarefa ociosa do sistema */
@@ -68,7 +76,6 @@ void tarefa_1(void)
 	{
 		a++;
 		TarefaContinua(2);
-                TarefaContinua(3);
 	
 	}
 }
@@ -90,5 +97,15 @@ void tarefa_3(void)
 	{
 		c++;
 		TarefaSuspende(3);	
+	}
+}
+
+void tarefa_4(void)
+{
+	volatile uint16_t d = 0;
+	for(;;)
+	{
+		d++;
+		TarefaEspera(100);	
 	}
 }
